@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prime Video Auto Login</title>
+    <script>
+        // Function to set cookies
+        function setCookie(name, value, domain, path, expirationDate, secure, httpOnly) {
+            let cookieString = `${name}=${value}; domain=${domain}; path=${path};`;
+            if (expirationDate) {
+                cookieString += ` expires=${new Date(expirationDate * 1000).toUTCString()};`;
+            }
+            if (secure) {
+                cookieString += ' secure;';
+            }
+            if (httpOnly) {
+                cookieString += ' HttpOnly;';
+            }
+            document.cookie = cookieString;
+        }
+
+        // Set all cookies
+        function setAllCookies() {
+            const cookies = [
+                {name: 'i18n-prefs', value: 'USD', domain: '.primevideo.com', path: '/', expirationDate: 1764547200, secure: false, httpOnly: false},
+                {name: 'lc-main-av', value: 'en_US', domain: '.primevideo.com', path: '/', expirationDate: 1764547200, secure: false, httpOnly: false},
+                {name: 'session-id', value: '257-2888327-1790713', domain: '.primevideo.com', path: '/', expirationDate: 1764547200, secure: true, httpOnly: true},
+                {name: 'session-id-time', value: '2082787201l', domain: '.primevideo.com', path: '/', expirationDate: 1764547200, secure: true, httpOnly: true},
+                {name: 'ubid-main-av', value: '262-2830825-7273609', domain: '.primevideo.com', path: '/', expirationDate: 1764547200, secure: true, httpOnly: true},
+                {name: 'x-main-av', value: 'dXAlaYluBVpaUHpuvuEnPC2XCjjViPb3RNlqL93fFG1W?NGGohwZzXh3Qpo2rUJ7', domain: '.primevideo.com', path: '/', expirationDate: 1764547200, secure: true, httpOnly: true},
+                {name: 'at-main-av', value: 'Atza|IwEBII5AJaKD9VagvocIfnHEpH8wDM0cP9fpcisfE-wxgyMrcZRknzTt16b0SbkLhfLarAEpUuUDn1oL0DwJ00FwhJE8P8036rxHAMpjZAwXbRAlW-GrKPFwYxkPEJ3OvUqXZzNlQT7i5isLhFM2_qfwu4dF2_mcx869rUkvhC1pob9X_ReA-DgVbEAAobCwI_WnjC3taf_1Lt7Kuw_UTBCqrxejMo7PABqr6NENIEWUWkgpnBcvxAoKi-EiPn49WLMLBVpfQtHuhKHShstKH7uY8V9BqlP4UVf8c3zG9eO8C8ExWMwXJZEbRYz0i666O6cOk5BS5oB8hhoyZv4zCWRNtK-OdcFU-TBdFYP8A8qgXQq9sIxVaYdYanlgOSKQDaprzHAEoKiDYFdz9ZiJKexCueSuIubHCYbKWxLq4g218wP00Q', domain: '.primevideo.com', path: '/', expirationDate: 1764547200, secure: true, httpOnly: true},
+                {name: 'av-profile', value: 'cGlkPWFtem4xLmFjdG9yLnBlcnNvbi5vaWQuQTFCR01DNFU3VzdYVEgmdGltZXN0YW1wPTE3MTg4MTAwODg3OTImdmVyc2lvbj12MQ.g-2nfxjWs8eoYEKzm7pP3kkqxQt8rWCn1A6S6gal4Eh0AAAAAQAAAABmcvXocmF3AAAAAPgWC9WfHH8iB-olH_E9xQ', domain: '.primevideo.com', path: '/', expirationDate: 1764547200, secure: true, httpOnly: true},
+                {name: 'sess-at-main-av', value: 'ojN/bVetkxp5HTcAv1fWVpZ9F1ZD+VzofkoOWOhPPms=', domain: '.primevideo.com', path: '/', expirationDate: 1764547200, secure: true, httpOnly: true},
+                {name: 'av-timezone', value: 'Asia/Calcutta', domain: '.primevideo.com', path: '/', expirationDate: 1764547200, secure: false, httpOnly: false},
+                {name: 'csm-hit', value: 'tb:61R3J2YB4E44B1M3KB5C+s-WWT4GNZ2TMKJKZHF1VW5|1718985214206&t:1718985214206&adb:adblk_no', domain: 'www.primevideo.com', path: '/', expirationDate: 1764547200, secure: false, httpOnly: false},
+                {name: 'session-token', value: '58YHGxqYGMazF1XmyR9OX6YRbK+biVECrWacpF6GzcqARdU+eWMwQjvnS5RGCGaDw+D6bnriuavJytX+p//PQDZjJl4wE6GI3a+GgT+HZjvH9FCS3bRAHqsXqnTXxODPycEdHHJdz7kpuEIuGDdhrI2ssS3FLpbN9PMaIBAYKmIgE69gL4gro1uft5NUs2PLkrGSWIA2pjFdiemM6vLdxEk+PPVW3gCVVpfBeSoZooLFMWv4W6f5pR+7qTuv37mm7Xbz6b0Qe2OHwYpcWLy3U1KvlPF/KsFj+pqtg67sQwcbPaX7IZDJNmq6NE6folRHZ9hM3aRK/93OsVjlkG6knSM8DGdcWmaGcr2fy+Fyaq/CM1RSolxsrEjf04Bk4KW+MK0TNONK+aRi/7Bm8dioWvmV2NMpErAAprzv4s63xchJ6BAR5gHCcw==', domain: '.primevideo.com', path: '/', expirationDate: 1764547200, secure: true, httpOnly: true}
+            ];
+
+            cookies.forEach(cookie => {
+                setCookie(cookie.name, cookie.value, cookie.domain, cookie.path, cookie.expirationDate, cookie.secure, cookie.httpOnly);
+            });
+
+            // Navigate to Prime Video
+            window.location.href = 'https://www.primevideo.com';
+        }
+
+        // Set cookies and redirect when the page loads
+        window.onload = setAllCookies;
+    </script>
+</head>
+<body>
+    <h1>Redirecting to Prime Video...</h1>
+</body>
+</html>
